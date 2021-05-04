@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.burger {
+  overflow: hidden;
+}
+
+.burgers-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-row-gap: 10px;
+}
+
+.burger-image {
+  height: 100%;
+}
+
+.order-button {
+  z-index: 2;
+}
