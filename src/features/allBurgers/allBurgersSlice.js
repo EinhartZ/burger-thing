@@ -13,6 +13,10 @@ export const allBurgersSlice = createSlice({
         addBurger: (state, action) => {
             state.push(action.payload);
             state.sort((a, b) => a.id > b.id ? 1 : -1);
+            console.log(state)
+        },
+        updateBurger: (state, action) => {
+            return state.map(burger => (burger.id === action.payload.id) ? {...burger, ...action.payload} : burger);
         },
         removeBurger: (state, action) => {
             return state.filter(burger => burger.id !== action.payload.id);
@@ -37,6 +41,7 @@ export const selectAllBurgersFiltered = (state) => {
 export const {
     loadData,
     addBurger,
+    updateBurger,
     removeBurger,
 } = allBurgersSlice.actions;
 

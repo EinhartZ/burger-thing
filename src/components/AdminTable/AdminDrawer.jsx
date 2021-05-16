@@ -1,5 +1,7 @@
 import { Drawer, Form, Row, Button, 
         Input, InputNumber } from 'antd';
+import Dropzone from 'react-dropzone'
+import FormItem from 'antd/lib/form/FormItem';
 
 
 export const AdminDrawer = ({showDrawer, setShowDrawer, record, updateRecord}) => {
@@ -16,7 +18,8 @@ export const AdminDrawer = ({showDrawer, setShowDrawer, record, updateRecord}) =
         const arr = transform(form.getFieldsValue()).filter(x => form.isFieldTouched(x));
         // Get the final object with only changed keys
         const final = form.getFieldsValue(arr);
-        console.log(final);
+        updateRecord(final)
+        onClose()
     }
     const transform = (obj, arr = [], parent = '') => {
         if (!obj) return [];
@@ -33,7 +36,6 @@ export const AdminDrawer = ({showDrawer, setShowDrawer, record, updateRecord}) =
       };
 
     return (
-
 
         <Drawer
         title="Edit"
@@ -64,7 +66,7 @@ export const AdminDrawer = ({showDrawer, setShowDrawer, record, updateRecord}) =
         >
             <Row>
                 <Form.Item name="name" label="Name">
-                    <Input/>
+                    <Input disabled/>
                 </Form.Item>
             </Row>
             <Row>
@@ -74,9 +76,27 @@ export const AdminDrawer = ({showDrawer, setShowDrawer, record, updateRecord}) =
                     max={99}
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                    onChange={value=>console.log(value)}
                 />
                 </Form.Item>
+            </Row>
+            <Row>
+                
+            </Row>
+
+            <Row>
+                <FormItem>
+
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                {({getRootProps, getInputProps}) => (
+                    <section>
+                    <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                    </div>
+                    </section>
+                )}
+                </Dropzone>
+                </FormItem>
             </Row>
         </Form>
       </Drawer>

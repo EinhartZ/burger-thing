@@ -14,7 +14,7 @@ export const AllBurgers = () => {
         dispatch(loadData());
         console.log("loadData");
     }
-    useEffect(onFirstRender, []);
+    // useEffect(onFirstRender, []);
     
     const onAddOrderHandler = (burger) => {
         // dispatch(removeFromAll(burger));

@@ -1,6 +1,6 @@
-import { Divider } from 'antd';
+import { Divider, Space, Form, InputNumber, Button} from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux"
-import { CartItem } from '../../components/CartItem/CartItem';
 import { selectShoppingCart, changeQuantity } from './shoppingCartSlice'
 
 export const ShoppingCart = () => {
@@ -16,16 +16,30 @@ export const ShoppingCart = () => {
     // console.log(shoppingCart);
     // console.log(cartElements);
 
+    const formLayout = {
+        labelCol: { span: 16 },
+        wrapperCol: { span: 8 },
+    };
+
     return (
         <>
         <Divider>Shopping Cart</Divider>
+        <Form {...formLayout}>
             {cartElements.map(
                 item => (
-                <div key = {item.id}>
-                <CartItem item = {item} onChange = {changeItemQuantity(item.name)}/>
-                </div>
+                <Form.Item key={item.id} label={`${item.id}. ${item.name} ${item.price}`}>
+                    <Space>
+                    <InputNumber min={1} value={item.quantity} onChange={changeItemQuantity(item.name)} />
+                    <Button
+                        danger
+                        icon={<DeleteOutlined />}
+                        onClick={() => changeItemQuantity(item.name)(0)}
+                    />
+                    </Space>
+                </Form.Item>
                 )
             )}
+        </Form>
         </>
     );
 
