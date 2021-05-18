@@ -1,5 +1,5 @@
 import { Divider, Space, Form, InputNumber, Button} from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux"
 import { selectShoppingCart, changeQuantity } from './shoppingCartSlice'
 
@@ -13,6 +13,8 @@ export const ShoppingCart = () => {
         cartElements.push({name: item, ...shoppingCart[item]});
     }
 
+    const cartTotal = cartElements.reduce((a, b) => a + b.price * b.quantity, 0)
+
     // console.log(shoppingCart);
     // console.log(cartElements);
 
@@ -24,10 +26,10 @@ export const ShoppingCart = () => {
     return (
         <>
         <Divider>Shopping Cart</Divider>
-        <Form {...formLayout}>
+        <Form colon={false} {...formLayout}>
             {cartElements.map(
                 item => (
-                <Form.Item key={item.id} label={`${item.id}. ${item.name} ${item.price}`}>
+                <Form.Item key={item.id} label={`${item.name}: ${item.price} $`}>
                     <Space>
                     <InputNumber min={1} value={item.quantity} onChange={changeItemQuantity(item.name)} />
                     <Button
@@ -39,9 +41,26 @@ export const ShoppingCart = () => {
                 </Form.Item>
                 )
             )}
+            <Form.Item label={`Total: ${cartTotal}$`}>
+                <Space>
+                <Button
+                    type="primary"
+                    icon={<ShoppingCartOutlined />}
+                    onClick={() =>confirmOrder()}
+                    disabled = {cartTotal <= 0}
+                >
+                    BUY
+                </Button>
+                </Space>
+            </Form.Item>
         </Form>
         </>
     );
+
+    function confirmOrder() {
+        console.info("Order Confirmed")
+        console.dir(cartElements);
+    }
 
     function changeItemQuantity(name) {
         return (quantity) => {
