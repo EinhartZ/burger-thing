@@ -14,7 +14,7 @@ export default function BurgerCard({burger, onClickHandler}) {
         cover={<img alt="example" src={burgerLogo}/>}
 
     >
-        <Meta title={`${burger.id}. ${burger.name}`} description="www.burger.com" />
+        <Meta title={`${burger.name}: ${burger.price} $`} description="www.burger.com" />
     </Card>
     </div>
     );

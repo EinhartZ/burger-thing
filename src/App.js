@@ -73,7 +73,7 @@ function App() {
           </Switch>
         </Content>
 
-        <Footer style={{ textAlign: 'center' }}>©2021 Created Einhart</Footer>
+        <Footer style={{ textAlign: 'center' }}>©2021 Created by Einhart</Footer>
       </Layout>
       </Router>
       

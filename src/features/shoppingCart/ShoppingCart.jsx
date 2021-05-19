@@ -58,6 +58,7 @@ export const ShoppingCart = () => {
     );
 
     function confirmOrder() {
+        //TODO generate receipt
         console.info("Order Confirmed")
         console.dir(cartElements);
     }
